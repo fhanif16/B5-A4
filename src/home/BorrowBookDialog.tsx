@@ -11,8 +11,13 @@ import { Button } from "@/components/ui/button";
 import { useBorrowBookMutation } from "@/redux/api/baseApi";
 import { useState } from "react";
 import Swal from "sweetalert2";
-
-export default function BorrowBookDialog({ book, open, setOpen, refetchBooks }) {
+interface BorrowBookDialogProps {
+  book: any;
+  open: boolean;
+  setOpen: (val: boolean) => void;
+  refetchBooks: () => void;
+}
+export default function BorrowBookDialog({ book, open, setOpen, refetchBooks }: BorrowBookDialogProps) {
   const [quantity, setQuantity] = useState(1);
   const [dueDate, setDueDate] = useState('');
   const [borrowBook, { isLoading }] = useBorrowBookMutation();

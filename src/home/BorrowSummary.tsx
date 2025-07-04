@@ -1,9 +1,9 @@
-import React from 'react';
+
 import { useGetBorrowSummaryQuery } from '@/redux/api/baseApi';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 
 export default function BorrowSummary() {
-  const { data, isLoading, isError } = useGetBorrowSummaryQuery();
+  const { data, isLoading, isError } = useGetBorrowSummaryQuery({});
 
 
   if (isLoading) return <p className="p-4">Loading borrowed books...</p>;
@@ -12,7 +12,7 @@ export default function BorrowSummary() {
 
   return (
     <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {data?.data?.map((borrow, index) => (
+      {data?.data?.map((borrow:any, index:number) => (
         <Card key={index} className="shadow rounded-xl border border-gray-200">
           <CardHeader>
             <CardTitle className="text-lg font-semibold">{borrow.title}</CardTitle>

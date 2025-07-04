@@ -14,19 +14,20 @@ import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import BorrowBookDialog from "./BorrowBookDialog";
 import { closeBorrowModal, openBorrowModal } from "@/redux/features/borrowModalSlice";
+import type { RootState } from "@/redux/store";
 
 export default function AllBooks() {
   const dispatch = useDispatch();
-  const { data, refetch } = useGetBooksQuery();
-  const { isOpen, selectedBook } = useSelector((state) => state.borrowModal);
-  const [deleteBook, { isLoading }] = useDeleteBookMutation();
+  const { data, refetch } = useGetBooksQuery({});
+const { isOpen, selectedBook } = useSelector((state: RootState) => state.borrowModal);
+  const [deleteBook] = useDeleteBookMutation();
 
   const [editBook, setEditBook] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
 
   return (
     <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {data?.data?.map((book, index) => (
+      {data?.data?.map((book:any, index:number) => (
         <Card key={index} className="shadow-lg rounded-2xl border border-gray-200">
           <CardHeader>
             <CardTitle className="text-xl font-semibold">{book.title}</CardTitle>
@@ -109,7 +110,7 @@ export default function AllBooks() {
         <EditBookDialog
           book={editBook}
           open={openDialog}
-          setOpen={(val) => {
+          setOpen={(val:boolean) => {
             setOpenDialog(val);
             if (!val) {
               setEditBook(null);
@@ -124,7 +125,7 @@ export default function AllBooks() {
         <BorrowBookDialog
           book={selectedBook}
           open={isOpen}
-          setOpen={(val) => {
+          setOpen={(val:boolean) => {
             if (!val) dispatch(closeBorrowModal());
           }}
           refetchBooks={refetch}

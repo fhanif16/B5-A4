@@ -11,8 +11,12 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useUpdateBookMutation } from "@/redux/api/baseApi";
 import Swal from "sweetalert2";
-
-export default function EditBookDialog({ book, open, setOpen }) {
+interface EditBookDialogProps {
+  book: any;
+  open: boolean;
+  setOpen: (val: boolean) => void;
+}
+export default function EditBookDialog({ book, open, setOpen }:EditBookDialogProps) {
   const [formData, setFormData] = useState({ ...book });
   const [updateBook] = useUpdateBookMutation();
 
@@ -21,9 +25,9 @@ export default function EditBookDialog({ book, open, setOpen }) {
     setFormData({ ...book });
   }, [book]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
       [name]: name === "copies" ? parseInt(value) : value,
     }));

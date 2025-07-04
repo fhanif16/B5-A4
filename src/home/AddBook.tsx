@@ -4,26 +4,54 @@ import { useAddBookMutation } from "@/redux/api/baseApi";
 import { Button } from "@/components/ui/button";
 
 export default function AddBook() {
-  const [formData, setFormData] = useState({
-    title: "",
-    author: "",
-    genre: "",
-    description: "",
-    isbn: "",
-    copies: 1,
-  });
+  // const [formData, setFormData] = useState({
+  //   title: "",
+  //   author: "",
+  //   genre: "",
+  //   description: "",
+  //   isbn: "",
+  //   copies: 1,
+  // });
+
+
+  interface FormDataType {
+  [key: string]: string | number;
+  title: string;
+  author: string;
+  genre: string;
+  description: string;
+  isbn: string;
+  copies: number;
+}
+
+const [formData, setFormData] = useState<FormDataType>({
+  title: "",
+  author: "",
+  genre: "",
+  description: "",
+  isbn: "",
+  copies: 1,
+});
 
   const [addBook, { isLoading }] = useAddBookMutation();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: name === "copies" ? parseInt(value) : value,
-    }));
-  };
+  // const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: name === "copies" ? parseInt(value) : value,
+  //   }));
+  // };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setFormData((prev: FormDataType) => ({
+    ...prev,
+    [name]: name === "copies" ? parseInt(value) : value,
+  }));
+};
 
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await addBook(formData).unwrap();

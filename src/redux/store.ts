@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { bookSlice } from "./features/bookSlice";
-import { baseApi } from "./api/baseApi";
-import borrowModalReducer from "../redux/features/borrowModalSlice"
 
+import { baseApi } from "./api/baseApi";
+
+import borrowModalReducer from "./features/borrowModalSlice"; 
 
 export const store = configureStore({
     reducer:{

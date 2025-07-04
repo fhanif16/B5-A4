@@ -1,69 +1,64 @@
-# React + TypeScript + Vite
+# 📚 Minimal Library Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive, user-friendly library management system built using **React**, **Redux Toolkit Query (RTK Query)**, **TypeScript**, and **Tailwind CSS**. This application allows users to manage books and borrowing operations through a clean interface—without any authentication or payment systems.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Project Highlights
 
-## Expanding the ESLint configuration
+- 🔧 Built with **React**, **TypeScript**, **RTK Query** for state management and API integration.
+- 🎨 Styled with **Tailwind CSS** for a clean, responsive UI.
+- ✅ Functional CRUD operations on books.
+- 📊 Borrowing system with quantity restrictions and summary reporting.
+- 🚫 No login or registration required.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🔍 Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 📘 Book Management
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- View all books in a table format.
+- Add new books via a form.
+- Edit and update existing book details.
+- Delete books with confirmation prompt.
+- Borrow books directly from the table.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> **Business logic:**  
+> - If copies = 0, book is marked unavailable.  
+> - Cannot borrow more than available copies.  
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 📥 Borrow Functionality
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Borrow form with:
+  - Quantity (number input)
+  - Due Date (calendar input)
+- Updates book availability in real time.
+- Redirects to **Borrow Summary** on success.
+
+### 📈 Borrow Summary
+
+- Aggregated view of all borrowed books.
+- Fields: **Title**, **ISBN**, **Total Quantity Borrowed**
+- Pulled from a dedicated borrow summary API.
+
+---
+
+## 📁 Project Structure
+
+src/
+├── components/
+├── pages/
+│ ├── AllBooks.tsx
+│ ├── AddBook.tsx
+│ ├── EditBook.tsx
+│ ├── BookDetails.tsx
+│ ├── BorrowForm.tsx
+│ └── BorrowSummary.tsx
+├── redux/
+│ ├── api/
+│ └── store.ts
+├── types/
+├── App.tsx
+├── main.tsx
+└── index.css
